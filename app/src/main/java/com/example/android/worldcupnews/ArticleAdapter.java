@@ -34,17 +34,19 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView sectionView = listItemView.findViewById(R.id.section);
         sectionView.setText(currentArticle.getSection());
 
-        // Find the TextView with id 'Author' and set the relevant author to this view
-        TextView authorView = listItemView.findViewById(R.id.author);
-        authorView.setText(currentArticle.getAuthor());
+        // Get the article time in raw format
+        String timeString = currentArticle.getTime();
 
         // Find the TextView with id 'Date' and set the relevant date to this view
         TextView dateView = listItemView.findViewById(R.id.date);
-        dateView.setText(currentArticle.getDate());
+        String month = timeString.substring(5, 6);
+        String day = timeString.substring(8,9);
+        dateView.setText(day + " / " + month);
 
         // Find the TextView with id 'Time' and set the relevant time to this view
         TextView timeView = listItemView.findViewById(R.id.time);
-        timeView.setText(currentArticle.getTime());
+        String time = timeString.substring(11,15);
+        timeView.setText(time);
 
         return listItemView;
     }
