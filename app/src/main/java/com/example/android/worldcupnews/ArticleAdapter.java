@@ -39,13 +39,13 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         // Find the TextView with id 'Date' and set the relevant date to this view
         TextView dateView = listItemView.findViewById(R.id.date);
-        String month = timeString.substring(5, 6);
-        String day = timeString.substring(8,9);
-        dateView.setText(day + " / " + month);
+        String month = timeString.substring(5, 7);
+        String day = timeString.substring(8,10);
+        dateView.setText(day + "/" + month);
 
         // Find the TextView with id 'Time' and set the relevant time to this view
         TextView timeView = listItemView.findViewById(R.id.time);
-        String time = timeString.substring(11,15);
+        String time = timeString.substring(11,16);
         timeView.setText(time);
 
         return listItemView;
