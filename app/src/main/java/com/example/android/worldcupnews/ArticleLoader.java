@@ -1,4 +1,33 @@
 package com.example.android.worldcupnews;
 
-public class ArticleLoader {
+import android.content.AsyncTaskLoader;
+import android.content.Context;
+
+import java.util.List;
+
+public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
+
+    private String mUrl;
+
+    public ArticleLoader(Context context, String url) {
+        super(context);
+        mUrl = url;
+    }
+
+    @Override
+    protected void onStartLoading() {
+        forceLoad();
+    }
+
+    @Override
+    public List<Article> loadInBackground() {
+        // Do not perform the request if there isn't a URL
+        if (mUrl == null) {
+            return null;
+        }
+
+        List<Article> articles = QueryUtils.fetchEarthquakeData(mUrl);
+        return articles;
+    }
+
 }
