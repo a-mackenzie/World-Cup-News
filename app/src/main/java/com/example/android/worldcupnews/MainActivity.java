@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loaderManager.initLoader(loaderID, null, this);
         } else {
             loading_spinner.setVisibility(View.GONE);
-            emptyStateView.setText("No articles found :(");
+            emptyStateView.setText("Check network connection");
         }
     }
 

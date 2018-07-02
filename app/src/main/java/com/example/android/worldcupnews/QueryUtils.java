@@ -103,6 +103,7 @@ public class QueryUtils {
                 inputStream.close();
             }
         }
+        Log.i("JSONR", jsonResponse);
         return jsonResponse;
     }
 
@@ -141,9 +142,11 @@ public class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
 
-            // Extract the JSONArray associated with the key called "features",
-            // which represents a list of features (or earthquakes).
-            JSONArray articlesArray = baseJsonResponse.getJSONArray("results");
+            // Create a JSONObject associated with they key "response"
+            JSONObject response = baseJsonResponse.getJSONObject("response");
+
+            // Extract the JSONArray associated with the key called "results",
+            JSONArray articlesArray = response.getJSONArray("results");
 
             // For each article in the articlesArray, create an Article object
             for (int i = 0; i < articlesArray.length(); i++) {
