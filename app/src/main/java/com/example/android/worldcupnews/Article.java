@@ -38,7 +38,7 @@ public class Article {
 
     // Gets the author of the article
     public String getAuthor() {
-        return mAuthor
+        return mAuthor;
     }
 
     // Gets the published date of the article
