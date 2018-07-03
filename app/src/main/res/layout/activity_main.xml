@@ -14,12 +14,28 @@
         android:divider="@color/colorAccent"
         android:dividerHeight="@dimen/listDividerHeight"/>
 
-    <TextView
-        android:id="@+id/emptyview"
+    <LinearLayout
+        android:id="@+id/emptyviewlayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        tools:text="No news stories found :("/>
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/emptyviewtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="No news stories found :("/>
+
+        <Button
+            android:id="@+id/retrybutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:text="Retry"/>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/loading_spinner"

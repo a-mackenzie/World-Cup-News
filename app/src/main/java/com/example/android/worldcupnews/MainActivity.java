@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,10 +22,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
 
-    private static final String LOG_TAG = MainActivity.class.getName();
-
-    TextView emptyStateView;
+    LinearLayout emptyStateLayout;
+    TextView emptyStateText;
     ProgressBar loading_spinner;
+    Button retryButton;
 
     // URL for the article data from the Guardian API
     private static final String guardian_API_URL = "https://content.guardianapis.com/search?from-date=2018-06-14&order-by=newest&section=football&page-size=20&q=world%20cup&api-key=0905eb78-ce98-4ba4-89d0-a45d6022cd9d";
@@ -34,24 +36,35 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     // Constant value for the loader ID
     private static final int loaderID = 1;
 
+    ConnectivityManager connectivityManager;
+    NetworkInfo networkInfo;
+
+    // Get a ref for the LoaderManager
+    LoaderManager loaderManager;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Find the required views in the layout
-        emptyStateView = findViewById(R.id.emptyview);
+        emptyStateLayout = findViewById(R.id.emptyviewlayout);
+        emptyStateText = findViewById(R.id.emptyviewtext);
         loading_spinner = findViewById(R.id.loading_spinner);
+        retryButton = findViewById(R.id.retrybutton);
         ListView listView = findViewById(R.id.listview);
 
         // Set the empty view for the ListView
-        listView.setEmptyView(emptyStateView);
+        listView.setEmptyView(emptyStateLayout);
 
         // Create a new ArticleAdapter
         mAdapter = new ArticleAdapter(this, new ArrayList<Article>());
 
         // Set the adapter on the ListView
         listView.setAdapter(mAdapter);
+
+        // Launch the loader
+        launchLoader();
 
         // Set an on item click listener on the ListView to open the url for the article
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,17 +77,32 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        // Set an on click listener for the retry button
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                emptyStateText.setText("");
+                retryButton.setVisibility(View.GONE);
+                loading_spinner.setVisibility(View.VISIBLE);
+                launchLoader();
+            }
+        });
 
-        // Get a ref for the LoaderManager
-        LoaderManager loaderManager = getLoaderManager();
+    }
+
+    // Launch the loader
+    public void launchLoader() {
+        // Initiate the Loader Manager
+        connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+        loaderManager = getLoaderManager();
 
         if (networkInfo != null) {
             loaderManager.initLoader(loaderID, null, this);
         } else {
             loading_spinner.setVisibility(View.GONE);
-            emptyStateView.setText("Check network connection");
+            emptyStateText.setText("Please check network connection");
+            retryButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -88,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
-        emptyStateView.setText("No articles found :(");
+        emptyStateText.setText("No articles found :(");
+        retryButton.setVisibility(View.VISIBLE);
         loading_spinner.setVisibility(View.GONE);
 
         // If there are articles, update the adapter
