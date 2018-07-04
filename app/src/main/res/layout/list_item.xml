@@ -3,6 +3,7 @@
     android:id="@+id/list_item"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@color/background"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -18,12 +19,14 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/dateFont"
             tools:text="02/07"/>
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/dateFont"
             tools:text="15:34"/>
 
     </LinearLayout>
@@ -35,20 +38,23 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:paddingTop="@dimen/listItemPaddingV"
-            tools:text="ARTICLE TITLE"/>
+            android:paddingEnd="@dimen/listItemPaddingH"
+            android:textAppearance="@style/titleFont"
+            tools:text="Article Title" />
 
         <TextView
             android:id="@+id/section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:paddingStart="64dp"
-            android:paddingEnd="16dp"
-            android:background="@color/colorAccent"
+            android:paddingStart="@dimen/sectionPaddingLeft"
+            android:paddingEnd="@dimen/listItemPaddingH"
+            android:background="@color/colorPrimary"
+            android:textAppearance="@style/sectionFont"
             tools:text="Football"
             android:textAlignment="center"/>
 

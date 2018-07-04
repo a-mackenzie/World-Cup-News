@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="titleFont">
+        <item name="android:fontFamily">@font/viga</item>
+        <item name="android:textSize">@dimen/titleFontSize</item>
+        <item name="android:textColor">@color/myDarkGrey</item>
+    </style>
+
+    <style name="dateFont">
+        <item name="android:fontFamily">@font/viga</item>
+        <item name="android:textSize">@dimen/dateFontSize</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="sectionFont">
+        <item name="android:fontFamily">@font/viga</item>
+        <item name="android:textSize">@dimen/dateFontSize</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

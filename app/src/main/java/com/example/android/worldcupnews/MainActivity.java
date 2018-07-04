@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Button retryButton;
 
     // URL for the article data from the Guardian API
-    private static final String guardian_API_URL = "https://content.guardianapis.com/search?from-date=2018-06-14&order-by=newest&section=football&page-size=20&q=world%20cup&api-key=0905eb78-ce98-4ba4-89d0-a45d6022cd9d";
+    private static final String guardian_API_URL =
+            "https://content.guardianapis.com/search?from-date=2018-06-14&order-by=newest&section=football&page-size=20&q=world%20cup&api-key=0905eb78-ce98-4ba4-89d0-a45d6022cd9d";
 
     // Adapter for the list of articles
     private ArticleAdapter mAdapter;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loaderManager.initLoader(loaderID, null, this);
         } else {
             loading_spinner.setVisibility(View.GONE);
-            emptyStateText.setText("Please check network connection");
+            emptyStateText.setText(getResources().getString(R.string.noNetworkResponse));
             retryButton.setVisibility(View.VISIBLE);
         }
     }
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
-        emptyStateText.setText("No articles found :(");
+        emptyStateText.setText(getResources().getString(R.string.noArticlesResponse));
         retryButton.setVisibility(View.VISIBLE);
         loading_spinner.setVisibility(View.GONE);
 
