@@ -3,4 +3,28 @@
     <string name="noNetworkResponse">Please check internet connection</string>
     <string name="noArticlesResponse">No news articles found</string>
     <string name="retry">Retry</string>
+
+    <string name="settingsMenuLabel">Settings</string>
+    <string name="settingsTitle">Article Settings</string>
+
+    <string name="settingsDateFromLabel">Date From</string>
+    <string name="settingsDateFromKey" translatable="false">dateFrom</string>
+    <string name="settingsDateFromDefault" translatable="false">2018-06-14</string>
+
+    <string name="settingsDateToLabel">Date To</string>
+    <string name="settingsDateToKey" translatable="false">dateTo</string>
+    <string name="settingsDateToDefault" translatable="false">2018-07-11</string>
+
+    <string name="settingsOrderByLabel">Order By</string>
+    <string name="settingsOrderByKey" translatable="false">order-by</string>
+    <string name="settingsOrderByDefault" translatable="false">@string/settingsOrderByNewestValue</string>
+
+    <string name="settingsOrderByNewestLabel">Newest</string>
+    <string name="settingsOrderByNewestValue" translatable="false">newest</string>
+
+    <string name="settingsOrderByOldestLabel">Oldest</string>
+    <string name="settingsOrderByOldestValue" translatable="false">oldest</string>
+
+    <string name="apiKey">0905eb78-ce98-4ba4-89d0-a45d6022cd9d</string>
+
 </resources>

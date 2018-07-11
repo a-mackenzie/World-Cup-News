@@ -4,11 +4,15 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     // URL for the article data from the Guardian API
     private static final String guardian_API_URL =
-            "https://content.guardianapis.com/search?from-date=2018-06-14&order-by=newest&section=football&page-size=20&q=world%20cup&show-tags=contributor&api-key=0905eb78-ce98-4ba4-89d0-a45d6022cd9d";
+            "https://content.guardianapis.com/search?";
 
     // Adapter for the list of articles
     private ArticleAdapter mAdapter;
@@ -109,8 +113,35 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
-        return new ArticleLoader(this, guardian_API_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String dateFrom = sharedPrefs.getString(
+                getString(R.string.settingsDateFromKey),
+                getString(R.string.settingsDateFromDefault));
+
+        String dateTo = sharedPrefs.getString(
+                getString(R.string.settingsDateToKey),
+                getString(R.string.settingsDateToDefault));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settingsOrderByKey),
+                getString(R.string.settingsOrderByDefault));
+
+        Uri baseUri = Uri.parse(guardian_API_URL);
+
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("section", "football");
+        uriBuilder.appendQueryParameter("q", "world cup");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("page-size", "30");
+        uriBuilder.appendQueryParameter("from-date", dateFrom);
+        uriBuilder.appendQueryParameter("to-date", dateTo);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("api-key", getResources().getString(R.string.apiKey));
+
+        return new ArticleLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -130,6 +161,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
         mAdapter.clear();
+    }
+
+    @Override
+    // This method initialises the contents of the settings menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 
