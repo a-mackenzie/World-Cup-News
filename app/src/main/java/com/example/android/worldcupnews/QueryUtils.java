@@ -166,8 +166,17 @@ public class QueryUtils {
                 // Extract the value for the key called "webUrl"
                 String url = currentArticle.getString("webUrl");
 
+                // Get the JSONObject associated with the key "tags"
+                JSONArray authorArray = currentArticle.getJSONArray("tags");
+
+                // Get the author at the first position in the list
+                JSONObject currentAuthor = authorArray.getJSONObject(0);
+
+                // Extract the value for the key called "webTitle"
+                String author = currentAuthor.getString("webTitle");
+
                 // Create a new Article object
-                Article article = new Article(title, section, time, url);
+                Article article = new Article(title, author, section, time, url);
 
                 // Add the new Article to the list of articles
                 articles.add(article);

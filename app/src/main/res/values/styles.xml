@@ -26,4 +26,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="authorFont">
+        <item name="android:fontFamily">@font/viga</item>
+        <item name="android:textSize">@dimen/dateFontSize</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

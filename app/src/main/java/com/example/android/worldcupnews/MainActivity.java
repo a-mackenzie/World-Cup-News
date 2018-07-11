@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     // URL for the article data from the Guardian API
     private static final String guardian_API_URL =
-            "https://content.guardianapis.com/search?from-date=2018-06-14&order-by=newest&section=football&page-size=20&q=world%20cup&api-key=0905eb78-ce98-4ba4-89d0-a45d6022cd9d";
+            "https://content.guardianapis.com/search?from-date=2018-06-14&order-by=newest&section=football&page-size=20&q=world%20cup&show-tags=contributor&api-key=0905eb78-ce98-4ba4-89d0-a45d6022cd9d";
 
     // Adapter for the list of articles
     private ArticleAdapter mAdapter;

@@ -30,6 +30,10 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView titleView = listItemView.findViewById(R.id.title);
         titleView.setText(currentArticle.getTitle());
 
+        // Find the TextView with id 'Author' and set the relevant section to this view
+        TextView authorView = listItemView.findViewById(R.id.author);
+        authorView.setText("by " + currentArticle.getAuthor());
+
         // Find the TextView with id 'Section' and set the relevant section to this view
         TextView sectionView = listItemView.findViewById(R.id.section);
         sectionView.setText(currentArticle.getSection());
